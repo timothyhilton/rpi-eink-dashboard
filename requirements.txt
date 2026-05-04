@@ -1,4 +1,5 @@
-# Raspberry Pi 4 / Waveshare e-Paper — use SPI enabled (sudo raspi-config → Interface Options → SPI).
+# Raspberry Pi 4 / Waveshare e-Paper — SPI on (sudo raspi-config → Interface Options → SPI).
+# Import drivers as: epaper.epaper("epd3in7").EPD() — not `from waveshare_epd import …`.
 # If Pillow wheels fail on first install: sudo apt install libopenjp2-7 libjpeg62-turbo
 Pillow>=10,<12
 waveshare-epaper>=1.4,<2

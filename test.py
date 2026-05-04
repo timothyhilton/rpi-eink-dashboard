@@ -1,8 +1,8 @@
-from waveshare_epd import epd3in7
+import epaper
 from PIL import Image, ImageDraw, ImageFont
 
-# Init display
-epd = epd3in7.EPD()
+# waveshare-epaper nests drivers under `epaper` (there is no top-level `waveshare_epd` package).
+epd = epaper.epaper("epd3in7").EPD()
 epd.init(0)          # 0 = 1-bit (black & white) mode
 epd.Clear(0xFF, 0)   # clear to white
 
