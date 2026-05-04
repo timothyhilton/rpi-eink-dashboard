@@ -3,3 +3,6 @@
 # If Pillow wheels fail on first install: sudo apt install libopenjp2-7 libjpeg62-turbo
 Pillow>=10,<12
 waveshare-epaper>=1.4,<2
+# epdconfig.py imports these directly but the wheel doesn't declare them.
+gpiozero>=2.0
+lgpio>=0.2.2.0
