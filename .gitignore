@@ -3,3 +3,7 @@ venv/
 __pycache__/
 *.pyc
 .Python
+.env
+secrets.json
+rpi-eink-dashboard
+images/
