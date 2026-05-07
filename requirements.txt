@@ -2,6 +2,7 @@
 # Import drivers as: epaper.epaper("epd3in7").EPD() — not `from waveshare_epd import …`.
 # If Pillow wheels fail on first install: sudo apt install libopenjp2-7 libjpeg62-turbo
 Pillow>=10,<12
+epaper-dithering>=4.1,<5
 waveshare-epaper>=1.4,<2
 # epdconfig.py imports these directly but the wheel doesn't declare them.
 gpiozero>=2.0
