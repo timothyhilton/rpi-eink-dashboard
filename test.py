@@ -60,59 +60,22 @@ def load_4gray(path: str | Path) -> Image.Image:
     return out
 
 
-base = load_4gray(Path(__file__).resolve().parent / "images" / "test.png")
-base = base.transpose(Image.Transpose.ROTATE_180)
+photo = load_4gray(Path(__file__).resolve().parent / "images" / "test.png")
+photo = photo.transpose(Image.Transpose.ROTATE_180)
 
-W, H = base.size  # 280 x 480
-BOX = (0, 15, W, 45)  # full-width marquee strip
-MSG = "i love my keiroo"
-GAP = 40  # px between repeats so loop is seamless
+# Draw stuff
+draw = ImageDraw.Draw(photo)
 font = ImageFont.load_default()
-
-# measure text once
-_d = ImageDraw.Draw(base)
-tw = int(_d.textlength(MSG, font=font))
-bbox = font.getbbox(MSG)
-th = bbox[3] - bbox[1]
-period = tw + GAP
-
-# pre-render one period tile
-strip_h = BOX[3] - BOX[1]
-tile = Image.new("L", (period, strip_h), 0xFF)
-ImageDraw.Draw(tile).text(
-    (0, (strip_h - th) // 2 - bbox[1]), MSG, font=font, fill=0
-)
-
-
-def render(offset: int) -> Image.Image:
-    frame = base.copy()
-    d = ImageDraw.Draw(frame)
-    d.rectangle(BOX, outline=0, fill=0xFF)
-    bw = BOX[2] - BOX[0]
-    strip = Image.new("L", (bw, strip_h), 0xFF)
-    x = -(offset % period)
-    while x < bw:
-        strip.paste(tile, (x, 0))
-        x += period
-    frame.paste(strip, (BOX[0], BOX[1]))
-    return frame
-
+draw.rectangle((5, 15, 90, 35), outline=0, fill=0xff)
+draw.text((10, 20), 'i love my keiroo', font=font, fill=0)
 
 if TEST_MODE:
-    out_dir = Path(__file__).resolve().parent
-    n = 0
-    for n, off in enumerate(range(0, period, 20)):
-        render(off).save(out_dir / f"out_{n:02d}.png")
-    print(f"saved {n+1} frames to {out_dir}")
+    out_path = Path(__file__).resolve().parent / "out.png"
+    photo.save(out_path)
+    print(f"saved preview to {out_path}")
     exit()
 
 epd = epaper.epaper("epd3in7").EPD()
-epd.init(0)
-STEP = 24  # px per frame; bigger = less chop on slow 4Gray
-try:
-    off = 0
-    while True:
-        epd.display_4Gray(epd.getbuffer_4Gray(render(off)))
-        off = (off + STEP) % period
-finally:
-    epd.sleep()
+epd.init(1)
+epd.display_4Gray(epd.getbuffer_4Gray(photo))
+epd.sleep()
