@@ -20,4 +20,4 @@ rsync -av --delete \
   "$LOCAL_APP_DIR/" \
   "$PI_HOST:$PI_APP_DIR/"
 
-ssh "$PI_HOST" "cd $PI_APP_DIR && . venv/bin/activate && python test.py"
+ssh "$PI_HOST" "cd $PI_APP_DIR && . venv/bin/activate && python main.py"
