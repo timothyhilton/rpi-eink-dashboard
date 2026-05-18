@@ -7,3 +7,8 @@ waveshare-epaper>=1.4,<2
 # epdconfig.py imports these directly but the wheel doesn't declare them.
 gpiozero>=2.0
 lgpio>=0.2.2.0
+# calendar-example.py — Google Calendar API OAuth + client.
+google-api-python-client 
+google-auth-httplib2 
+google-auth-oauthlib
+arrow

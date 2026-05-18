@@ -9,3 +9,5 @@ rpi-eink-dashboard
 images/
 out.png
 agents.md
+credentials.json
+token.json
