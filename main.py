@@ -101,12 +101,6 @@ if TEST_MODE:
     print(f"saved preview to {out_path}")
     exit()
 
-# occasional full refresh, e.g. at startup or once every N updates
 epd.init(0)
 epd.Clear(0xFF, 0)
 epd.display_4Gray(epd.getbuffer_4Gray(img))
-
-# normal update
-epd.init(1)
-epd.display_1Gray(epd.getbuffer(img))
-epd.sleep()
