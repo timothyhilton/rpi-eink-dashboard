@@ -10,4 +10,5 @@ rsync -av --delete \
   "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/" \
   "tim@$1:~/project/rpi-eink-dashboard/"
 
+# ssh tim@$1 "pkill -f 'python.*main\.py'"
 ssh "tim@$1" "cd ~/project/rpi-eink-dashboard && . venv/bin/activate && python main.py"
